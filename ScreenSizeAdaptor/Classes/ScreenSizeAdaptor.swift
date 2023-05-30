@@ -10,7 +10,7 @@ import Foundation
 public class ScreenSizeAdaptor {
     
     
-    enum Dimension {
+    public enum Dimension {
         case none
         case width
         case height
@@ -20,7 +20,7 @@ public class ScreenSizeAdaptor {
     public static let shared = ScreenSizeAdaptor()
     
     /// 设计图的大小
-    private var designSize: CGFloat = UIScreen.main.bounds.size
+    private var designSize: CGSize = UIScreen.main.bounds.size
     /// 宽度缩放比例
     public private(set) var wScale: CGFloat = 1
     /// 高度缩放比例
@@ -67,7 +67,7 @@ public class ScreenSizeAdaptor {
         designHeight * scale(.height)
     }
     
-    public func size(_ designSize: CGSize) -> CGFloat {
+    public func size(_ designSize: CGSize) -> CGSize {
         CGSize(width: designSize.width * scale(.width), height: designSize.height * scale(.height))
     }
     
