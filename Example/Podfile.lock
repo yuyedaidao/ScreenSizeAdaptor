@@ -1,0 +1,16 @@
+PODS:
+  - ScreenSizeAdaptor (0.1.0)
+
+DEPENDENCIES:
+  - ScreenSizeAdaptor (from `../`)
+
+EXTERNAL SOURCES:
+  ScreenSizeAdaptor:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  ScreenSizeAdaptor: 52a04992d5291defe453659d015897b8361a235c
+
+PODFILE CHECKSUM: 5515514ca485efd1f9d58a607da15a8b95b68cea
+
+COCOAPODS: 1.11.3
