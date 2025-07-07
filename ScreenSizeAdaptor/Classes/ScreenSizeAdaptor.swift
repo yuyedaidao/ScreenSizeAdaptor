@@ -7,9 +7,10 @@
 
 import Foundation
 
+public typealias ScreenSize = ScreenSizeAdaptor
+
 public class ScreenSizeAdaptor {
-    
-    
+
     public enum Dimension {
         case none
         case width
@@ -18,7 +19,8 @@ public class ScreenSizeAdaptor {
     
     /// 分享的实例 （并非单例设计，使用之前需要设置设计大小）
     public static let shared = ScreenSizeAdaptor()
-    
+    /// 设备屏幕大小 注意需要此属性需要第一时间设定
+    private var mainSize: CGSize = UIScreen.main.bounds.size
     /// 设计图的大小
     private var designSize: CGSize = UIScreen.main.bounds.size
     /// 宽度缩放比例
@@ -30,15 +32,22 @@ public class ScreenSizeAdaptor {
     
     private init() {}
     
+    public init(mainSize: CGSize, designSize: CGSize? = nil) {
+        self.mainSize = mainSize
+        if let designSize = designSize {
+            updateDisignSize(designSize)
+        }
+    }
+    
+    @available(*, deprecated, message: "请用init(mainSize: CGSize, designSize: CGSize)完成初始化")
     public init(designSize: CGSize) {
         updateDisignSize(designSize)
     }
     
     public func updateDisignSize(_ size: CGSize) {
         self.designSize = size
-        let screenSize = UIScreen.main.bounds.size
-        wScale = screenSize.width / size.width
-        hScale = screenSize.height / size.height
+        wScale = mainSize.width / size.width
+        hScale = mainSize.height / size.height
     }
     
     private func scale(_ dimension: Dimension) -> CGFloat {
@@ -73,6 +82,18 @@ public class ScreenSizeAdaptor {
     
     public func point(_ designPoint: CGFloat) -> CGFloat {
         designPoint * scale(.none)
+    }
+    
+    public class var size: CGSize {
+        Self.shared.mainSize
+    }
+    
+    public class var height: CGFloat {
+        Self.size.height
+    }
+    
+    public class var width: CGFloat {
+        Self.size.width
     }
 }
 
