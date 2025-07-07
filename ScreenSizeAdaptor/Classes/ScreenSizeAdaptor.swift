@@ -35,17 +35,22 @@ public class ScreenSizeAdaptor {
     public init(mainSize: CGSize, designSize: CGSize? = nil) {
         self.mainSize = mainSize
         if let designSize = designSize {
-            updateDisignSize(designSize)
+            updateDesignSize(designSize)
         }
     }
     
     @available(*, deprecated, message: "请用init(mainSize: CGSize, designSize: CGSize)完成初始化")
     public init(designSize: CGSize) {
-        updateDisignSize(designSize)
+        updateDesignSize(designSize)
     }
     
-    public func updateDisignSize(_ size: CGSize) {
-        self.designSize = size
+    public func setMainSize(_ size: CGSize, designSize: CGSize? = nil) {
+        mainSize = size
+        updateDesignSize(designSize ?? self.designSize)
+    }
+    
+    public func updateDesignSize(_ size: CGSize) {
+        designSize = size
         wScale = mainSize.width / size.width
         hScale = mainSize.height / size.height
     }
